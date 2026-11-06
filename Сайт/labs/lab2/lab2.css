@@ -1,0 +1,185 @@
+.toggle-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.banner-card {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    zoom: 0.4;
+    margin: 10px auto;
+    overflow: hidden; 
+    user-select: none;
+    background: linear-gradient( #fff,#56d4e0);
+}
+
+.character-container {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.painter-img {
+    position: absolute;
+    bottom: -5px;
+    width: 110px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.frame-1 {
+    opacity: 1;
+}
+
+@keyframes walk1 {
+    25%  { opacity: 0; }
+}
+
+@keyframes walk2 {
+    25%  { opacity: 1; }
+    50%  { opacity: 0; }
+    75%  { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes walk3 {
+    50%  { opacity: 1; }   
+    75%  { opacity: 0; }
+}
+
+.star-layer {
+    position: absolute;
+    top: 15px;
+    left: 12px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.text-hover {
+    position: static;      
+    transform: none;       
+    font-size: 20px;
+    font-weight: normal;
+    color: #000;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.text-active {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 20px;  
+    color: #000; 
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.star-img {
+    width: 35px;
+    height: 35px;
+    transition: transform 0.3s ease;
+    pointer-events: auto; 
+}
+
+.brush-img {
+    position: absolute;
+    width: 35px;
+    opacity: 0;
+    pointer-events: none;
+    top: 40px;
+    left: 5px;
+}
+
+.banner-card:hover .frame-1 {
+    animation: walk1 1s steps(1) infinite;
+}
+.banner-card:hover .frame-2 {
+    animation: walk2 1s steps(1) infinite;
+}
+.banner-card:hover .frame-3 {
+    animation: walk3 1s steps(1) infinite;
+}
+
+.banner-card:hover .star-layer {
+    opacity: 1;
+}
+
+.banner-card:hover .text-hover {
+    opacity: 1;
+}
+
+@keyframes star-spin {
+    0%   { transform: rotate(0deg) translateX(0) translateY(0); }
+    20%  { transform: rotate(90deg) translateX(10px) translateY(10px); }
+    40%  { transform: rotate(180deg) translateX(-10px) translateY(10px); }
+    60%  { transform: rotate(270deg) translateX(10px) translateY(-10px); }
+    80% { transform: rotate(360deg) translateX(-10px) translateY(-10px); }
+    100% { transform: rotate(360deg) translateX(0px) translateY(0px); }
+}
+
+.star-img:hover {
+    animation: star-spin 1.5s linear infinite;
+}
+
+@keyframes brush-curve {
+    0%   { transform: translate(0, 0) rotate(0deg);   opacity: 1; }
+    20%  { transform: translate(35px, 20px) rotate(20deg); opacity: 1; }
+    40%  { transform: translate(70px, -20px) rotate(-10deg); opacity: 1; }
+    60%  { transform: translate(105px, 20px) rotate(20deg); opacity: 1; }
+    80%  { transform: translate(140px, -20px) rotate(-10deg); opacity: 1; }
+    100% { transform: translate(175px, 0)   rotate(0deg);   opacity: 0; }
+}
+
+@keyframes flex-breathe {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.banner-card:has(.toggle-input:checked){
+    animation: flex-breathe 1s ease-in-out infinite;
+}
+
+.toggle-input:checked ~ .brush-img {
+    opacity: 1;
+    animation: brush-curve 2s ease-in-out infinite;
+}
+
+.toggle-input:checked ~ .star-layer .text-hover {
+    /* pointer-events: none;    */
+}
+
+.toggle-input:checked ~ .star-layer {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.toggle-input:checked ~ .text-active {
+    opacity: 1;
+}
+
+/* 
+.toggle-input:checked ~ .character-container .frame-1,
+.toggle-input:checked ~ .character-container .frame-2 {
+    animation: none;
+    opacity: 0;
+}
+.toggle-input:checked ~ .character-container .frame-3 {
+    animation: none;
+    opacity: 1;
+}*/
